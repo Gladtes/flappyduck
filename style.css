@@ -20,8 +20,8 @@ body {
     position: absolute;
     width: 40px;
     height: 40px;
-    background-color: yellow;
-    border-radius: 50%;
+    background-image: url('duck.png'); /* Add a realistic duck image */
+    background-size: cover;
     top: 50%;
     left: 50px;
     transform: translateY(-50%);
@@ -50,6 +50,14 @@ body {
     position: absolute;
     top: 10px;
     left: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#stage {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     font-size: 24px;
     font-weight: bold;
 }
