@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flappy Duck</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flappy Horse</title>
+  <style>
+    body {
+      margin: 0;
+      background: skyblue;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      display: block;
+      margin: 0 auto;
+    }
+  </style>
 </head>
 <body>
-    <div id="gameContainer">
-        <div id="duck"></div>
-        <div id="obstacleTop" class="obstacle"></div>
-        <div id="obstacleBottom" class="obstacle"></div>
-        <div id="score">0</div>
-        <div id="stage">Stage 1</div>
-    </div>
-    <script src="script.js"></script>
+  <canvas id="gameCanvas"></canvas>
+  <script src="flappy_horse.js"></script>
 </body>
 </html>
