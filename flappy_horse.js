@@ -8,7 +8,7 @@ canvas.height = 600;
 
 // Load the horse image
 const horseImage = new Image();
-horseImage.src = "horse.png"; // Ensure the file is in the same directory as this script
+horseImage.src = "horse.png"; // Ensure the file is in the same directory
 
 // Horse properties
 const horse = { x: 150, y: 300, width: 60, height: 50, velocity: 0 };
@@ -23,14 +23,15 @@ const pipeSpeed = 2;
 
 // Game state
 let score = 0;
-let isGameRunning = true;
+let isGameRunning = false; // Initially, the game is not running
 
-// Create initial pipes
-for (let i = 0; i < 3; i++) {
-  const x = canvas.width + i * 300;
-  const height = Math.random() * (canvas.height - gapHeight - 100) + 50;
-  pipes.push({ x, height });
-}
+// Start button coordinates and dimensions
+const startButton = {
+  x: canvas.width / 2 - 100,
+  y: canvas.height / 2 - 30,
+  width: 200,
+  height: 60,
+};
 
 // Handle user input
 window.addEventListener("keydown", (event) => {
@@ -38,6 +39,46 @@ window.addEventListener("keydown", (event) => {
     horse.velocity = jumpStrength;
   }
 });
+
+canvas.addEventListener("click", (event) => {
+  if (!isGameRunning) {
+    // Check if the start button is clicked
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = event.clientX - rect.left;
+    const mouseY = event.clientY - rect.top;
+
+    if (
+      mouseX >= startButton.x &&
+      mouseX <= startButton.x + startButton.width &&
+      mouseY >= startButton.y &&
+      mouseY <= startButton.y + startButton.height
+    ) {
+      startGame();
+    }
+  }
+});
+
+// Reset the game
+function resetGame() {
+  horse.y = 300;
+  horse.velocity = 0;
+  score = 0;
+  isGameRunning = true;
+
+  // Reset pipes
+  pipes.length = 0;
+  for (let i = 0; i < 3; i++) {
+    const x = canvas.width + i * 300;
+    const height = Math.random() * (canvas.height - gapHeight - 100) + 50;
+    pipes.push({ x, height });
+  }
+}
+
+// Start the game
+function startGame() {
+  resetGame();
+  gameLoop();
+}
 
 // Check for collisions
 function checkCollision() {
@@ -79,6 +120,16 @@ function drawScore() {
   ctx.fillText(`Score: ${score}`, 20, 40);
 }
 
+// Draw the start button
+function drawStartButton() {
+  ctx.fillStyle = "blue";
+  ctx.fillRect(startButton.x, startButton.y, startButton.width, startButton.height);
+
+  ctx.fillStyle = "white";
+  ctx.font = "30px Arial";
+  ctx.fillText("START", startButton.x + 50, startButton.y + 40);
+}
+
 // Update game state
 function updateGame() {
   if (!isGameRunning) return;
@@ -110,27 +161,29 @@ function renderGame() {
   // Clear the canvas
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Draw game objects
-  drawHorse();
-  drawPipes();
-  drawScore();
+  if (isGameRunning) {
+    // Draw game objects
+    drawHorse();
+    drawPipes();
+    drawScore();
+  } else {
+    // Draw game over message and start button
+    ctx.fillStyle = "black";
+    ctx.font = "50px Arial";
+    ctx.fillText("Game Over!", canvas.width / 2 - 150, canvas.height / 2 - 60);
+    drawStartButton();
+  }
 }
 
 // Main game loop
 function gameLoop() {
+  updateGame();
+  renderGame();
+
   if (isGameRunning) {
-    updateGame();
-    renderGame();
-  } else {
-    // Display game over message
-    ctx.fillStyle = "black";
-    ctx.font = "50px Arial";
-    ctx.fillText("Game Over!", canvas.width / 2 - 150, canvas.height / 2);
-    ctx.font = "30px Arial";
-    ctx.fillText(`Score: ${score}`, canvas.width / 2 - 60, canvas.height / 2 + 50);
+    requestAnimationFrame(gameLoop);
   }
-  requestAnimationFrame(gameLoop);
 }
 
-// Start the game loop
-gameLoop();
+// Initial rendering (shows the start button before the game starts)
+drawStartButton();
