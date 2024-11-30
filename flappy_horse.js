@@ -51,11 +51,13 @@ function checkCollision() {
     }
   }
 }
-
+// Load the horse image
+const horseImage = new Image();
+horseImage.src = "horse.png"; // 
 // Draw the horse
 function drawHorse() {
-  ctx.fillStyle = "brown";
-  ctx.fillRect(horse.x, horse.y, horse.width, horse.height);
+  ctx.drawHorse = "brown";
+  ctx.drawImage(horse.x, horse.y, horse.width, horse.height);
 }
 
 // Draw pipes
