@@ -6,8 +6,12 @@ const ctx = canvas.getContext("2d");
 canvas.width = 800;
 canvas.height = 600;
 
+// Load the horse image
+const horseImage = new Image();
+horseImage.src = "horse.png"; // Ensure the file is in the same directory as this script
+
 // Horse properties
-const horse = { x: 150, y: 300, width: 40, height: 30, velocity: 0 };
+const horse = { x: 150, y: 300, width: 60, height: 50, velocity: 0 };
 const gravity = 0.6;
 const jumpStrength = -10;
 
@@ -51,13 +55,10 @@ function checkCollision() {
     }
   }
 }
-// Load the horse image
-const horseImage = new Image();
-horseImage.src = "horse.png"; // 
+
 // Draw the horse
 function drawHorse() {
-  ctx.drawHorse = "brown";
-  ctx.drawImage(horse.x, horse.y, horse.width, horse.height);
+  ctx.drawImage(horseImage, horse.x, horse.y, horse.width, horse.height);
 }
 
 // Draw pipes
