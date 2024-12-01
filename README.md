@@ -2,7 +2,7 @@
 
 Welcome to **Flappy Horse**! This is a fun and addictive game where you control a horse that needs to navigate through obstacles. The goal is to get the highest score possible by flying through as many obstacles as you can without crashing.
 
-![Flappy Horse]([FlappyHorse.gif](https://raw.githubusercontent.com/Gladtes/flappyhorse/main/FlappyHorse.gif)
+![Flappy Horse](https://raw.githubusercontent.com/Gladtes/flappyhorse/main/FlappyHorse.gif)
 
 ## How to Play
 
